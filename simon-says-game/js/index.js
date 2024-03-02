@@ -92,13 +92,13 @@ function resetGame() {
     main();
   }, 1000);
 }
-function endGame() {
+function generateElement(message) {
   let div = document.createElement("div");
   let p = document.createElement("p");
   let replayButton = document.createElement("button");
   let replayButtonText = document.createTextNode("Restart Game");
   replayButton.appendChild(replayButtonText);
-  p.innerHTML = "You Lost!!";
+  p.innerHTML = message;
   div.style.cssText = ` position: absolute;
      background: linear-gradient(to top, #87b7ff, #6f7cf5);
     padding: 100px 20px;
@@ -115,6 +115,9 @@ function endGame() {
   div.appendChild(replayButton);
   gameContainer.style.position = "relative";
   gameContainer.appendChild(div);
+}
+function endGame() {
+  generateElement("You Lost");
   replayButton.addEventListener("click", function () {
     window.location.reload();
   });
@@ -125,28 +128,8 @@ function winGame() {
     child.classList.add("inactive");
   });
   const winGame = new Audio("./sounds/game-win.wav");
-  let div = document.createElement("div");
-  let p = document.createElement("p");
-  let replayButton = document.createElement("button");
-  let replayButtonText = document.createTextNode("Restart Game");
-  replayButton.appendChild(replayButtonText);
-  p.innerHTML = "You Win!!";
-  div.style.cssText = ` position: absolute;
-     background: linear-gradient(to top, #87b7ff, #6f7cf5);
-    padding: 100px 20px;
-    width: 100%;
-    top: 0%;
-    border-radius: 5px;
-    left: 0%;
-    height: 100%;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    font-size: 35px;
-    border: 1px solid rgb(204, 204, 204);`;
-  div.appendChild(p);
-  div.appendChild(replayButton);
-  gameContainer.style.position = "relative";
-  gameContainer.appendChild(div);
+  generateElement("You Win");
+  winGame.play();
   replayButton.addEventListener("click", function () {
     window.location.reload();
     gameLevel.innerHTML = 0;
